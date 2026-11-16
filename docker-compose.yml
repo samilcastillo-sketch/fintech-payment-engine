@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  payment-engine:
+    build: .
+    container_name: payment-engine-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - DATABASE_PATH=/app/data/payments.db
+      - WEBHOOK_SECRET=whsec_production_secret_key_99
+      - ENV=production
+    volumes:
+      - payment_data:/app/data
+
+volumes:
+  payment_data:
